@@ -4,3 +4,5 @@ python-multipart==0.0.9
 Jinja2==3.1.4
 python-pptx==0.6.23
 requests==2.32.3
+gunicorn==23.0.0
+
