@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Text, Your Style – PPTX Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #0b1220; color: #e6edf7; }
+    .card { background: #121a2b; border: 1px solid #1f2a44; }
+    .form-control, .form-select { background: #0f172a; color: #e6edf7; border-color: #243b55; }
+    .btn-primary { background: #6c7cff; border-color: #6c7cff; }
+    a { color: #8bd3ff; }
+    .badge { background: #243b55; }
+    .small-help { font-size: 0.85rem; color: #bcdcff; }
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <h1 class="mb-3">Your Text, Your Style – Auto-Generate a Presentation</h1>
+    <p class="text-secondary">Paste text/markdown below (no upload required) or upload a PowerPoint template to reuse styles. API keys are never stored.</p>
+
+    <div class="row g-4">
+      <div class="col-12 col-lg-8">
+        <div class="card p-3">
+          <form id="genForm" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label class="form-label">Input Text / Markdown</label>
+              <textarea class="form-control" name="input_text" rows="10" required placeholder="Paste your content here..."></textarea>
+              <div class="form-text small-help">You may paste your content here — uploading a template is optional.</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Upload a PowerPoint Template (optional)</label>
+              <input class="form-control" type="file" accept=".pptx,.potx" name="template" />
+              <div class="form-text small-help">If you upload a .pptx/.potx, the generated deck will try to reuse its layouts, fonts and images.</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label text-white">Guidance (optional)</label>
+              <input class="form-control" name="guidance" placeholder="e.g., investor pitch deck, technical overview, sales deck" />
+            </div>
+
+            <div class="row g-2">
+              <div class="col-12 col-md-4">
+                <label class="form-label text-white">Provider</label>
+                <select class="form-select" name="provider">
+                  <option value="">No LLM (heuristic)</option>
+                  <option value="openai">OpenAI</option>
+                  <option value="openai-compatible">OpenAI-Compatible</option>
+                  <option value="anthropic">Anthropic</option>
+                  <option value="gemini">Gemini</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-4">
+                <label class="form-label text-white">Model (optional)</label>
+                <input class="form-control" name="model" placeholder="e.g., gpt-4o-mini / claude-3-5-sonnet-latest / gemini-1.5-flash" />
+              </div>
+              <div class="col-12 col-md-4">
+                <label class="form-label text-white">API Key (not stored)</label>
+                <input class="form-control" name="api_key" placeholder="paste your key here (kept in this request only)" />
+              </div>
+            </div>
+
+            <div class="mt-2 mb-3">
+              <label class="form-label text-white">Base URL (for OpenAI-compatible, optional)</label>
+              <input class="form-control" name="base_url" placeholder="e.g., https://aipipe.org/openai/v1" />
+              <div class="form-text small-help">Leave empty for official OpenAI.</div>
+            </div>
+
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" value="true" id="speakerNotes" name="speaker_notes">
+              <label class="form-check-label" for="speakerNotes">Auto-generate speaker notes</label>
+            </div>
+
+            <div class="d-grid">
+              <button class="btn btn-primary" type="submit">Generate Presentation</button>
+            </div>
+          </form>
+          <div id="status" class="mt-3 small text-secondary"></div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="card p-3">
+          <h5>Tips</h5>
+          <ul>
+            <li>Paste text into the box to use the heuristic (no upload needed).</li>
+            <li>Upload a real deck template for best styling reuse.</li>
+            <li>We reuse images already in your template. No AI image gen.</li>
+            <li>Keys are never stored server-side.</li>
+          </ul>
+          <span class="badge">Optional Enhancements</span>
+          <ul class="mt-2">
+            <li>Slide previews before download</li>
+            <li>Tone presets</li>
+            <li>Retry & rate-limit handling</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
